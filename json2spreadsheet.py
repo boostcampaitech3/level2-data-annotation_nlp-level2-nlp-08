@@ -57,8 +57,12 @@ def get_needed_relation_data(tmp_relation):
         outputs['type'] = chg_num2number_of_members(annotation_legend[entity['classId']].split("-")[1].lower())
         return outputs
     
+    
     output_subject = _get_entity(sub_entity)
     output_object = _get_entity(obj_entity)
+    # 데이터 생성 도중 바뀐 기준 적용 (upper_group 삭제 -> sub_group으로 변경)
+    if output_subject['type'] == 'upper_group':
+        return output_object, output_subject
     return output_subject, output_object
 
 # mk class sentence w/ relation
@@ -67,19 +71,29 @@ def get_label(relation_json):
     try:
         _,sub_type, label = annotation_legend[re.findall("\(+(.+)+\|",annotation_legend[label_tag])[0]].split("-")
         # num -> number_of_members
+        # 데이터 생성 도중 바뀐 기준 적용 ORG-NOH -> ANM-NOH
+        # 데이터 생성 도중 바뀐 기준 적용 (upper_group 삭제 -> sub_group으로 변경)
         label = chg_num2number_of_members(label)
+        if label == 'no_relation':
+            return f'{label}'
+        elif label == 'number_of_members':
+            sub_type = 'anm'
+        elif label == 'upper_group':
+            label = 'sub_group'
+
         return f"{sub_type}:{label}"
     except:
         print("Change to no_relation.")
         _,sub_type, = annotation_legend[re.findall("\(+(.+)+\|",annotation_legend[label_tag])[0]].split("-")
-        return f"{sub_type}:no_relation"
+        return f"no_relation"
 
 def get_context_from_html(html_file):
     html_file = re.sub(r"\n","", html_file)
     html_file = html.unescape(html_file) # 21-11-17 추가, &quot; 등 제거
     return re.findall("(<pre.+>)(.+)(</pre>)",html_file)[0][1]
 
-def get_sentence_with_entites(subject_entity, object_entity, sentence):
+def get_sentence_with_entites(subject_entity, object_entity, sentence, label):
+    
     if subject_entity['start'] < object_entity['start']:
         entity1,entity2 = subject_entity, object_entity
     else:
@@ -143,7 +157,7 @@ for context_name, relation_folder, contexts_folder in zip(context_name_list, rel
             context_json = f.read()
         
         tmp_sentence = get_context_from_html(context_json)
-        tmp_sentence_w_entities = get_sentence_with_entites(tmp_subject,tmp_object,tmp_sentence)
+        tmp_sentence_w_entities = get_sentence_with_entites(tmp_subject,tmp_object,tmp_sentence,tmp_label)
         
         #각 list에 데이터 저장
         id_list.append(f"{context_name}")
