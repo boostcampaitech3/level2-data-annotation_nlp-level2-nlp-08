@@ -2,7 +2,7 @@
 - Naver Boostcamp AI Tech 3
 - NLP Data Annotation Project
 
-## [Solution Presentation]
+## [Solution Presentation](https://github.com/boostcampaitech3/level2-data-annotation_nlp-level2-nlp-08/blob/main/assets/08_presentation.pdf)
 
 ## [Guideline](https://github.com/boostcampaitech3/level2-data-annotation_nlp-level2-nlp-08/blob/main/assets/08_guideline.pdf)
 
