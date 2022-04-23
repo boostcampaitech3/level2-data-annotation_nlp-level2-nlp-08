@@ -4,6 +4,8 @@
 
 ## [Solution Presentation](https://github.com/boostcampaitech3/level2-data-annotation_nlp-level2-nlp-08/blob/main/assets/08_presentation.pdf)
 
+## [Wrapup Report](https://github.com/boostcampaitech3/level2-data-annotation_nlp-level2-nlp-08/blob/main/assets/Data_Annotation_NLP_%ED%8C%80_%EB%A6%AC%ED%8F%AC%ED%8A%B8(8%EC%A1%B0).pdf)
+
 ## [Guideline](https://github.com/boostcampaitech3/level2-data-annotation_nlp-level2-nlp-08/blob/main/assets/08_guideline.pdf)
 
 ## [Relation Map](https://github.com/boostcampaitech3/level2-data-annotation_nlp-level2-nlp-08/blob/main/assets/08_relation.xlsx)
